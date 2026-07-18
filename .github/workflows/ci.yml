@@ -7,9 +7,24 @@ on:
     branches: [main]
 
 jobs:
+  secret-scan:
+    name: Secret Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # tells the checkout action to pull the full commit history. Gitleaks needs this to scan every previous commit for leaked secrets.
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     name: Build
     runs-on: ubuntu-latest
+    needs: secret-scan
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
