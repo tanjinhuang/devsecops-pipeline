@@ -31,6 +31,8 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devsecops-app:${{ github.sha }} .
+        env: 
+          API_KEY: ${{ secrets.API_KEY }} # use github repository secrets key in settings
 
       - name: Build successful
         run: echo "Build successful"

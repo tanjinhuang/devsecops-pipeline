@@ -3,8 +3,11 @@ from flask import Flask
 
 app = Flask(__name__)
 
-# Vulnerability 1: Hardcoded API key (should use environment variables)
-SUPER_SECRET_API_KEY = "sk-proj-7mKz9XWq2vB4nR1tY6pL3jH8dQ5sC0eG9fA2xZ1vB3nM"
+# Vulnerability 1: Hardcoded Mock API key (should use environment variables), high entropy key so gitleak can detect
+# SUPER_SECRET_API_KEY = ""
+# it's now removed so that gitleak will not detect it even in comments.
+
+API_KEY = os.environ.get("API_KEY")  # Use environment variable for API key
 
 
 @app.route("/")
