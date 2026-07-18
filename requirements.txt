@@ -1,0 +1,2 @@
+# Vulnerabilities 2: CVE-2023-30861 (session cookie disclosure) and CVE-2026-27205 (header bypass) in old Flask version
+Flask==2.0.1
