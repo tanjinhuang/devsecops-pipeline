@@ -21,8 +21,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  build:
-    name: Build
+  build-and-scan:
+    name: Build and Vulnerability Scan
     runs-on: ubuntu-latest
     needs: secret-scan
     steps:
@@ -31,8 +31,11 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devsecops-app:${{ github.sha }} .
-        env: 
-          API_KEY: ${{ secrets.API_KEY }} # use github repository secrets key in settings
 
-      - name: Build successful
-        run: echo "Build successful"
+      - name: Run Trivy container scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: devsecops-app:${{ github.sha }}
+          format: 'table'
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'
