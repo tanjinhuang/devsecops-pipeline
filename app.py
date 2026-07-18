@@ -11,6 +11,5 @@ SUPER_SECRET_API_KEY = "sk-proj-abc123def456ghi789jkl012mno345pqr678stu901vwx234
 def hello():
     return "Hello, World!"
 
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
