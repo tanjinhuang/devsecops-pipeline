@@ -38,4 +38,5 @@ jobs:
           image-ref: devsecops-app:${{ github.sha }}
           format: 'table'
           exit-code: '1'
+          ignore-unfixed: true # skip CVE with no fixes, so the pipeline will not fail for those CVEs
           severity: 'CRITICAL,HIGH'
